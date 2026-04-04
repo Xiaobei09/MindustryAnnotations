@@ -3,7 +3,13 @@ jdk:
   - openjdk17
 
 install:
-  - ./gradlew :annotations:build
+  - ./gradlew :annotations:build :annotations:publishToMavenLocal -x test
+  - echo "=== Listing build/libs ==="
+  - ls -la annotations/build/libs/ || echo "No libs directory"
+  - echo "=== Listing build/publications ==="
+  - ls -la annotations/build/publications/ || echo "No publications directory"
+  - echo "=== Listing ~/.m2 ==="
+  - ls -la ~/.m2/repository/com/github/Xiaobei09/ || echo "Not in Maven local"
 
 artifacts:
   - path: annotations/build/libs/*.jar
