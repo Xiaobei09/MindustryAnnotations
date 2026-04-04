@@ -12,7 +12,7 @@ jobs:
       - name: Fetch upstream
         run: |
           git remote add upstream https://github.com/Anuken/Mindustry.git
-          git fetch upstream main
+          git fetch upstream master
       
       - name: Sync specific folders
         run: |
