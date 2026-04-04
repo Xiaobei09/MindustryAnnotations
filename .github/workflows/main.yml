@@ -1,0 +1,30 @@
+name: Sync Specific Folders
+on:
+  schedule: [{cron: '0 */6 * * *'}]  # 每6小时
+  workflow_dispatch:
+
+jobs:
+  sync-folders:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Fetch upstream
+        run: |
+          git remote add upstream https://github.com/Anuken/Mindustry.git
+          git fetch upstream main
+      
+      - name: Sync specific folders
+        run: |
+          # 同步这些文件夹
+          git checkout upstream/main -- annotations/
+          
+          # 如果文件夹不存在，会自动创建
+          
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "auto: sync folders from upstream"
+          git push origin main
