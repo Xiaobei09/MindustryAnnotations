@@ -1,14 +1,15 @@
+// annotations/build.gradle
 plugins {
     id 'java-library'
     id 'maven-publish'
 }
 
 group = 'com.github.Xiaobei09'
-version = 'main-SNAPSHOT'  // 使用你的分支名
+version = 'main-SNAPSHOT'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 publishing {
@@ -16,6 +17,15 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
             artifactId = 'annotations'
+            
+            // 确保 JAR 和源码都被发布
+            artifact sourcesJar
         }
     }
+}
+
+// 生成源码 JAR
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
