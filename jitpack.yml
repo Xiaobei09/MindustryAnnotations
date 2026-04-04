@@ -1,8 +1,6 @@
 # jitpack.yml
-before_install:
-  - sdk install java 11
-  - sdk use java 11
-  - chmod +x gradlew
+jdk:
+  - openjdk17
 
 install:
   - ./gradlew :annotations:build :annotations:publishToMavenLocal -x test
@@ -10,5 +8,3 @@ install:
 artifacts:
   - path: annotations/build/libs/*.jar
     type: jar
-  - path: annotations/build/publications/*/pom-default.xml
-    type: pom
