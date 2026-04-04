@@ -1,31 +1,28 @@
 // annotations/build.gradle
 plugins {
-    id 'java-library'
+    id 'java'
     id 'maven-publish'
 }
 
 group = 'com.github.Xiaobei09'
 version = 'main-SNAPSHOT'
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+// 自定义 JAR 任务只打包资源
+task resourceJar(type: Jar) {
+    archiveBaseName = 'annotations'
+    archiveVersion = version
+    from fileTree('src/main/resources')
+}
+
+artifacts {
+    archives resourceJar
 }
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            from components.java
+            artifact resourceJar
             artifactId = 'annotations'
-            
-            // 确保 JAR 和源码都被发布
-            artifact sourcesJar
         }
     }
-}
-
-// 生成源码 JAR
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
 }
