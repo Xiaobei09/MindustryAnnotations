@@ -6,3 +6,9 @@ before_install:
 
 install:
   - ./gradlew :annotations:build :annotations:publishToMavenLocal -x test
+
+artifacts:
+  - path: annotations/build/libs/*.jar
+    type: jar
+  - path: annotations/build/publications/*/pom-default.xml
+    type: pom
