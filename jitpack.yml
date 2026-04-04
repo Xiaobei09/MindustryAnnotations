@@ -3,7 +3,7 @@ jdk:
   - openjdk17
 
 install:
-  - ./gradlew :annotations:build :annotations:publishToMavenLocal -x test
+  - ./gradlew :annotations:build
 
 artifacts:
   - path: annotations/build/libs/*.jar
